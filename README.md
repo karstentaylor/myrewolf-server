@@ -4,6 +4,8 @@ This is a boilerplate project used for starting new projects!
 
 ## Set up
 
+notes.md contains steps that have been taken so far.
+
 Complete the following steps to start a new project (NEW-PROJECT-NAME):
 
 1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
