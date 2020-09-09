@@ -6,4 +6,5 @@
 -Ran npm t to test connection. Test passed. Ran npm run dev. Server works.
 -Ran npm i postgrator-cli@3.2.0 -D (postgrator installed as a devDependency)
 -Created postgrator-config file.
--Ran npm i pg
+-Ran npm i pg.
+-Ran migrations.
