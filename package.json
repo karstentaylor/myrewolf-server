@@ -9,7 +9,8 @@
 		"migrate": "postgrator --config postgrator-config.js",
 		"start": "node src/server.js",
 		"predeploy": "npm audit",
-		"deploy": "git push heroku master"
+		"deploy": "git push heroku master",
+		"seed": "psql -d capstone3 -U dunder_mifflin -f ./seeds/seed.tables.sql"
 	},
 	"keywords": [],
 	"author": "",
