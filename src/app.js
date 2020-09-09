@@ -7,9 +7,10 @@ const { NODE_ENV } = require('./config');
 const error = require('./error');
 
 //ROUTES
-// const restRouter = require('./restaurant/restaurant-router');
-// const authRouter = require('./auth-rest/auth-router');
-// const restaurantDishRouter = require('./dish/dish-router');
+const registrationRouter = require('./registration/registration-router');
+//const loginRouter = require('./login/login-router');
+// const authRouter = require('./auth/auth-router');
+// const adminRouter = require('./admin/admin-router'); --Seyi
 
 const app = express();
 
@@ -24,9 +25,11 @@ app.use(helmet());
 app.use(cors());
 
 //ROUTES CALL
-// app.use(restRouter);
+app.use(registrationRouter);
+// app.use(loginRouter);
 // app.use(authRouter);
-// app.use(restaurantDishRouter);
+// app.use(adminRouter); --Seyi
+
 
 app.use(error);
 
