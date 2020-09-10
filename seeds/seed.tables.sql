@@ -1,11 +1,15 @@
 BEGIN;
 
 TRUNCATE
-"users";
+users;
 
-INSERT INTO "users" ("id", "email", "name", "password", "admin")
+INSERT INTO users (id, email, name, password, admin)
 VALUES
 (1, 'admin@admin.com', 'admin', 'Adminpass1!', true),
 (2, 'test@test.com', 'test', 'Testuser1!', false);
+
+-- Admin pass: Adminpass1!
+-- Test pass: Testuser1!
+
 
 COMMIT;
