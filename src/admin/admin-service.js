@@ -20,3 +20,5 @@ const AdminService = {
       .delete();
     }
 }
+
+module.exports = AdminService
