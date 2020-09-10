@@ -11,4 +11,5 @@ VALUES
 -- Admin pass: Adminpass1!
 -- Test pass: Testuser1!
 
+
 COMMIT;
