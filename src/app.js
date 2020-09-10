@@ -8,9 +8,7 @@ const error = require('./error');
 
 //ROUTES
 const registrationRouter = require('./registration/registration-router');
-//const loginRouter = require('./login/login-router');
-// const authRouter = require('./auth/auth-router');
-// const adminRouter = require('./admin/admin-router'); --Seyi
+const authRouter = require('./auth/auth-router');
 
 const app = express();
 
@@ -26,9 +24,7 @@ app.use(cors());
 
 //ROUTES CALL
 app.use(registrationRouter);
-// app.use(loginRouter);
-// app.use(authRouter);
-// app.use(adminRouter); --Seyi
+app.use(authRouter);
 
 
 app.use(error);
