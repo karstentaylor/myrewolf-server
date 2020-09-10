@@ -2,10 +2,9 @@ const bcrypt = require('bcryptjs');
 const xss = require('xss');
 
 //SPECIAL CHARACTERS TO PASSWORD VALIDATION   
-const passValidation = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/;
-const userEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const validation = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/;
 
-const registrationService = {
+const userService = {
 
   //PASSWORD VALIDATION
   passValidation(password) {
@@ -18,7 +17,7 @@ const registrationService = {
     if (password.startsWith(' ') || password.endsWith(' ')) {
       return 'Password must not have empty spaces.';
     }
-    if (!passValidation.test(password)) {
+    if (!validation.test(password)) {
       return 'Password must contain one upper case, a lower case, a number and a special character';
     }
     return null;
@@ -58,10 +57,10 @@ const registrationService = {
 
   //EMAIL VALIDATION
   emailValidation(email){
-    if(!userEmail.test(email)){
-      return 'Email is invalid. Your email should be example@provider.com .';
-    }
-    return null;
+    return db('users').where({ email });
+    //SELECT * FROM people WHERE email NOT LIKE '%_@__%.__%'
+    //TODO validate email
+
   },
 
   //ADDING A NEW USER
@@ -75,4 +74,4 @@ const registrationService = {
 
 };
 
-module.exports = registrationService;
+module.exports = userService;

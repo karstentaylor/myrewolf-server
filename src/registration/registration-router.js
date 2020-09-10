@@ -1,93 +1,97 @@
-/* eslint-disable indent */
 const express = require('express');
 const registrationService = require('./registration-service');
 const registrationRouter = express.Router();
 const jsonBodyParser = express.json();
 const logs = require('../logs');
+const path = require('path');
 const { serializeUser } = require('./registration-service');
 
 //TODO ADD AUTH
 
 registrationRouter
-  .route('/api/user')
+  .route('/api/register')
   .post(jsonBodyParser, (req, res, next) => {
 
-    const { name, email, password } = req.body;
+    const trimUser = {
+      name: req.body.name.trim().replace(/\s+/g, ''),
+      password: req.body.password,
+      email: req.body.email.trim(),
+    }
       
     //VALIDATION FOR REQUIRED FIELDS
-    for (const field of ['email', 'password', 'name'])
-      if (!serializeUser[field]) {
-        logs.error(`User ${field} is required`);
+    for (const field of ['name', 'password', 'email'])
+      if (!trimUser[field]) {
+        logs.error(`User ${field} is required.`);
         return res
           .status(400)
-          .json({ error: `The ${field} is required.` });
+          .json({ error: `The ${field} field is required.` });
       }
 
-    
-    try { 
-        //PASSWORD VALIDATION
-        const passError = registrationService.passValidation(password);
+    //PASSWORD VALIDATION
+    const passError = registrationService.passValidation(trimUser.password);
 
-        if (passError) {
-        logs.error(passError);
-        return res
-            .status(400)
-            .json({ error: passError });
-        }
-
-        //NAME VALIDATION
-        const nameError = registrationService.nameValidation(name);
-
-        if(nameError){
-            logs.error(nameError);
-            return res
-            .status(400)
-            .json({ error: nameError });
-        }
-
-        //EMAIL VALIDATION
-        const emailError = registrationService.emailValidation(email);
-
-        if(nameError){
-            logs.error(emailError);
-            return res
-            .status(400)
-            .json({ error: emailError });
-        }
-
-        if (registrationService.emailExists)
-        return res
+    if (passError) {
+      logs.error(passError);
+      return res
         .status(400)
-        .json({ error: 'Email already exists.' });
+        .json({ error: passError });
+    }
 
-        //HASHES PASSWORD
-       async function hashedPassword(){ 
-         
-        const hashingPass = await registrationService.hashPassword(password);
+    //NAME VALIDATION
+    const nameError = registrationService.nameValidation(trimUser.name);
 
-        const newUser = {
-            name,
-            password: hashingPass,
-            email,
-            admin,
+    if(nameError){
+      logs.error(nameError);
+      return res
+        .status(400)
+        .json({ error: nameError });
+    }
+
+    //EMAIL VALIDATION
+    const emailError = registrationService.emailValidation(trimUser.email);
+
+    if(emailError){
+      logs.error(emailError);
+      return res
+        .status(400)
+        .json({ error: emailError });
+    }
+
+    //ADDING USER VALIDATION
+    registrationService
+      .emailExists(req.app.get('db'), trimUser.email)
+      .then((validReg) => {
+        if (validReg) {
+          logs.error('Email already exists.');
+          return res
+            .status(400)
+            .json({ error: 'Email already exists. Try again.' });
         }
-        //TODO DO i need admin here?
 
-      
-        const user = await registrationService.addUser(
-          req.app.get('db'),
-          newUser
-      )}
+        return registrationService
+          .passHash(trimUser.password)
+          .then((hashedPass) => {
+            trimUser.password = hashedPass;
 
-      res
-      .status(201)
-      .location(path.posix.join(req.originalUrl, `/${user.id}`))
-      .json(registrationService.serializeUser(user))
-
-    }
-    catch(error){
-        next(error);
-    }
+            return registrationService
+              .addUser(req.app.get('db'), trimUser)
+              .then((user) => {
+                logs.info(
+                  `User created successfully. The user id is: ${user.id}.`
+                );
+                res
+                  .status(200)
+                  .location(
+                    path.posix.join(
+                      'http://localhost:8000', //TODO add the heroku link
+                      `/user/${user.id}`
+                    )
+                  )
+                  .json(serializeUser(user));
+              });
+          });
+      })
+      .catch(next);
   });
 
-  module.exports = registrationRouter;
+module.exports = registrationRouter;
