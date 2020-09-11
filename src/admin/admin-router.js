@@ -1,12 +1,13 @@
 const express = require('express');
 const AdminService = require('./admin-service');
-const path = require('path');
 const { requireAuth } = require("../middleware/jwt-auth");
+const bodyParser = express.json();
+
 
 const adminRouter = express.Router();
 const jsonBodyParser = express.json();
 
-adminRouter.route("/")
+adminRouter.route("/api/:user")
     .all(requireAuth)
     .get((req, res, next) => {
         AdminService.getAllUsers(req.app.get('db'))
@@ -17,10 +18,10 @@ adminRouter.route("/")
         })
         .catch(next)
     })
-    .delete(bodyParser,(req,res,next) => {
-        const { id, email } = req.params;
+    .delete(bodyParser, (req, res, next) => {
+        const { email } = req.params;
 
-        AdminService.deleteUser(req.app.get("db"), id, email)
+        AdminService.deleteUser(req.app.get("db"), email)
             .then(() => {
                 res.status(204);
             })

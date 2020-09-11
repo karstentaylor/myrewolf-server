@@ -4,11 +4,13 @@ const authService = require('../auth/auth-service');
 async function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
 
-  let bearerToken
+  let bearerToken;
+
+  //CHECKS TO IF THERE IS A BEARER TOKEN
   if (!authToken.toLowerCase().startsWith('bearer ')) {
     return res
     .status(401)
-    .json({ error: 'Missing bearer token' })
+    .json({ error: 'Missing bearer token.' })
   } else {
     bearerToken = authToken.slice(7, authToken.length)
   }
@@ -21,10 +23,11 @@ async function requireAuth(req, res, next) {
       payload.sub,
     )
 
+      //CHECKS IF IT IS THE CORRECT USER
     if (!user)
       return res
       .status(401)
-      .json({ error: 'Unauthorized request' })
+      .json({ error: 'Unauthorized request.' })
 
     req.user = user
     next()
@@ -32,7 +35,7 @@ async function requireAuth(req, res, next) {
     if (error instanceof JsonWebTokenError)
       return res
       .status(401)
-      .json({ error: 'Unauthorized request' })
+      .json({ error: 'Unauthorized request.' })
 
     next(error)
   }
