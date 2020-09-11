@@ -60,10 +60,10 @@ authRouter
   })
 
   .put(requireAuth, (req, res) => {
-    const sub = req.users.email
+    const sub = req.user.email
     const payload = {
-       id: req.users.id,
-      name: req.users.name,
+       id: req.user.id,
+      name: req.user.name,
     }
     res.send({
       authToken: authService.createUserJwt(sub, payload),
