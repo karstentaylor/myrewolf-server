@@ -3,20 +3,18 @@ const xss = require('xss');
 const bcrypt = require('bcryptjs');
 
 const AdminService = {
-    getAllUsers(db) {
-      return db
-      .select(
-        '*'
-      )
-      .from('users')
-    },
+	getAllUsers(db) {
+		return db.select('*').from('users');
+	},
 
-    deleteUser(db, id, user_email) {
-      return db('users')
-      .where(
-        db.raw(`id=${id}
+	deleteUser(db, id, user_email) {
+		return db('users')
+			.where(
+				db.raw(`id=${id}
         and email=${user_email}`)
-      )
-      .delete();
-    }
-}
+			)
+			.delete();
+	},
+};
+
+module.exports = AdminService;
