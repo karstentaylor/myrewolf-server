@@ -80,7 +80,7 @@ registrationRouter
                   `User created successfully. The user id is: ${user.id}.`
                 );
                 res
-                  .status(200)
+                  .status(201)
                   .location(
                     path.posix.join(
                       'http://localhost:8000', //TODO add the heroku link

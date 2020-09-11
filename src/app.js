@@ -8,9 +8,12 @@ const error = require('./error');
 
 //ROUTES
 const registrationRouter = require('./registration/registration-router');
-//const loginRouter = require('./login/login-router');
-// const authRouter = require('./auth/auth-router');
+
+const authRouter = require('./auth/auth-router');
 adminRouter = require('./admin/admin-router'); 
+=======
+const authRouter = require('./auth/auth-router');
+
 
 const app = express();
 
@@ -26,9 +29,13 @@ app.use(cors());
 
 //ROUTES CALL
 app.use(registrationRouter);
-// app.use(loginRouter);
-// app.use(authRouter);
+
+
+app.use(authRouter);
 app.use(adminRouter); 
+=======
+app.use(authRouter);
+
 
 
 app.use(error);
