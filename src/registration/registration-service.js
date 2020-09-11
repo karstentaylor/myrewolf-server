@@ -73,6 +73,13 @@ const registrationService = {
       .then(([users]) => users);
   },
 
+  //UPDATE USER PASSWORD  
+  updateUser(db, id, password) {
+    return db('users')
+      .where('id', '=', id)
+      .update({ password: password });
+  },
+
 };
 
 module.exports = registrationService;
