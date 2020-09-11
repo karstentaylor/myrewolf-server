@@ -11,11 +11,10 @@ const AdminService = {
       .from('users')
     },
 
-    deleteUser(db, id, user_email) {
-      return db('users')
+    deleteUser(db, email) {
+      return db("users")
       .where(
-        db.raw(`id=${id}
-        and email=${user_email}`)
+        db.raw(`email=${email}`)
       )
       .delete();
     }
