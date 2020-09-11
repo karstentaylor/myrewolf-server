@@ -10,7 +10,7 @@ const error = require('./error');
 const registrationRouter = require('./registration/registration-router');
 //const loginRouter = require('./login/login-router');
 // const authRouter = require('./auth/auth-router');
-// const adminRouter = require('./admin/admin-router'); --Seyi
+adminRouter = require('./admin/admin-router'); 
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use(cors());
 app.use(registrationRouter);
 // app.use(loginRouter);
 // app.use(authRouter);
-// app.use(adminRouter); --Seyi
+app.use(adminRouter); 
 
 
 app.use(error);
