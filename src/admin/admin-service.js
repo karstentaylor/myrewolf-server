@@ -1,6 +1,4 @@
-const REGEX_UPPER_LOWER_NUMBER = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\S]+/;
-const xss = require('xss');
-const bcrypt = require('bcryptjs');
+
 
 const AdminService = {
     getAllUsers(db) {
@@ -11,10 +9,10 @@ const AdminService = {
       .from('users')
     },
 
-    deleteUser(db, email) {
+    deleteUser(db, id, user_email) {
       return db("users")
       .where(
-        db.raw(`email=${email}`)
+        db.raw(`id=${id} and email=${user_email}`)
       )
       .delete();
     }
