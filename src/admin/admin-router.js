@@ -5,7 +5,7 @@ const { requireAuth } = require("../middleware/jwt-auth");
 const adminRouter = express.Router();
 const jsonBodyParser = express.json();
 
-adminRouter.route("/")
+adminRouter.route("/user")
     .all(requireAuth)
     .get((req, res, next) => {
         AdminService.getAllUsers(req.app.get('db'))
