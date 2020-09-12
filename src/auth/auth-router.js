@@ -60,10 +60,10 @@ authRouter
   })
 
   .put(requireAuth, (req, res) => {
-    const sub = req.users.email
+    const sub = req.user.email
     const payload = {
-       id: req.users.id,
-      name: req.users.name,
+       id: req.user.id,
+      name: req.user.name,
     }
     res.send({
       authToken: authService.createUserJwt(sub, payload),
@@ -76,7 +76,7 @@ authRouter
   .patch(jsonBodyParser, (req, res, next) => {
     const trimUpdateUser = {
       id: req.params.id,
-      password: req.body.password.trim(),
+      password: req.body.password,
     };
 
     //VALIDATION PASSWORD REQUIRED  

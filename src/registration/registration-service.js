@@ -50,6 +50,9 @@ const registrationService = {
 
   //NAME LENGTH VALIDATION
   nameValidation(name){
+    if(name.length === 0){
+      return 'The name field is required.';
+    }
     if(name.length > 25){
       return 'Name has too many characters.';
     }
