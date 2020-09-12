@@ -5,7 +5,6 @@ const bodyParser = express.json();
 
 
 const adminRouter = express.Router();
-const jsonBodyParser = express.json();
 
 adminRouter.route("/api/:user")
     .all(requireAuth)
@@ -19,9 +18,9 @@ adminRouter.route("/api/:user")
         .catch(next)
     })
     .delete(bodyParser, (req, res, next) => {
-        const { email } = req.params;
+        const { id, email } = req.body;
 
-        AdminService.deleteUser(req.app.get("db"), email)
+        AdminService.deleteUser(req.app.get("db"), id, email)
             .then(() => {
                 res.status(204);
             })
