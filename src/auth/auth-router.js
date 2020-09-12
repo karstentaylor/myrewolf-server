@@ -76,7 +76,7 @@ authRouter
   .patch(jsonBodyParser, (req, res, next) => {
     const trimUpdateUser = {
       id: req.params.id,
-      password: req.body.password.trim(),
+      password: req.body.password,
     };
 
     //VALIDATION PASSWORD REQUIRED  
