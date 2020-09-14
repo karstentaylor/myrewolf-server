@@ -6,26 +6,27 @@ const logs = require('../logs');
 const path = require('path');
 const { serializeUser } = require('./registration-service');
 
-//TODO ADD AUTH
-
 registrationRouter
   .route('/api/register')
   .post(jsonBodyParser, (req, res, next) => {
 
     const trimUser = {
-      name: req.body.name.trim().replace(/\s+/g, ''),
+      name: req.body.name,
       password: req.body.password,
-      email: req.body.email.trim(),
-    }
+      email: req.body.email,
+    };
       
     //VALIDATION FOR REQUIRED FIELDS
     for (const field of ['name', 'password', 'email'])
-      if (!trimUser[field]) {
+      if (!trimUser[field] || trimUser[field] === undefined) {
         logs.error(`User ${field} is required.`);
         return res
           .status(400)
           .json({ error: `The ${field} field is required.` });
       }
+
+    //VALIDATION WHEN USER USES NAME WITH SPACES BEFORE AND AFTER
+    trimUser.name = trimUser.name.trim().replace(/\s+/g, ' ');
 
     //PASSWORD VALIDATION
     const passError = registrationService.passValidation(trimUser.password);
@@ -72,7 +73,7 @@ registrationRouter
           .passHash(trimUser.password)
           .then((hashedPass) => {
             trimUser.password = hashedPass;
-
+ 
             return registrationService
               .addUser(req.app.get('db'), trimUser)
               .then((user) => {
@@ -83,8 +84,8 @@ registrationRouter
                   .status(201)
                   .location(
                     path.posix.join(
-                      'http://localhost:8000', //TODO add the heroku link
-                      `/user/${user.id}`
+                      req.originalUrl, //TODO add the heroku link
+                      `/${user.id}`
                     )
                   )
                   .json(serializeUser(user));
