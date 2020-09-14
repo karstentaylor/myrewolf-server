@@ -1,21 +1,19 @@
-
-
 const AdminService = {
-    getAllUsers(db) {
-      return db
-      .select(
-        '*'
-      )
-      .from('users')
-    },
+	getAllUsers(db) {
+		return db.select('*').from('users');
+	},
 
-    deleteUser(db, id, user_email) {
-      return db("users")
-      .where(
-        db.raw(`id=${id} and email=${user_email}`)
-      )
-      .delete();
-    }
-}
+	deleteUser(db, id, email) {
+		return (
+			db('users')
+				.where({ id })
+				.where({ email })
+				// 		db.raw(`id=${id}
+				// and email=${email}`)
+				// 	)
+				.delete()
+		);
+	},
+};
 
-module.exports = AdminService
+module.exports = AdminService;
