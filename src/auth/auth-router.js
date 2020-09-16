@@ -47,6 +47,7 @@ authRouter
 				id: dbUser.id,
 				name: dbUser.name,
 				admin: dbUser.admin,
+				create_date: dbUser.create_date,
 			};
 			res.send({
 				authToken: authService.createUserJwt(sub, payload),
