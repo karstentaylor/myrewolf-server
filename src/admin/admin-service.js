@@ -3,11 +3,11 @@ const AdminService = {
 		return db.select('*').from('users');
 	},
 
-	deleteUser(db, id, email) {
+	deleteUser(db, id) {
 		return (
 			db('users')
 				.where({ id })
-				.where({ email })
+				//.where({ email })
 				// 		db.raw(`id=${id}
 				// and email=${email}`)
 				// 	)
