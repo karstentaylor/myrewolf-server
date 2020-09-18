@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
+const jwt = require('jsonwebtoken');
 
 describe('User Endpoints', function () {
 	let db;
@@ -125,7 +126,7 @@ describe('User Endpoints', function () {
 				.expect(400, { error: 'Email already exists. Try again.' });
 		});
 
-		describe.only('Given a valid user registration', () => {
+		describe('Given a valid user registration', () => {
 			it('responds 201, serialized user with no password', () => {
 				const newUser = {
 					email: 'email@email.com',
@@ -144,6 +145,8 @@ describe('User Endpoints', function () {
 						expect(res.headers.location).to.eql(`/api/user/${res.body.id}`);
 					});
 			});
+
+			//NEEDS REVIEW==============>
 
 			it('stores the new user in db with bcrypt password', () => {
 				const newUser = {
@@ -171,6 +174,28 @@ describe('User Endpoints', function () {
 							})
 					);
 			});
+		});
+	});
+	describe(`PATCH token`, () => {
+		beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+		console.log('testUsers', testUsers);
+		//PROBLEM
+		it(`responds 200 and JWT auth token using secret`, () => {
+			const expectedToken = jwt.sign(
+				{ id: testUser.id, name: testUser.name },
+				process.env.JWT_SECRET,
+				{
+					subject: testUser.email,
+					expiresIn: process.env.JWT_EXPIRY,
+					algorithm: 'HS256',
+				}
+			);
+			return supertest(app)
+				.put('/api/auth/token')
+				.set('Authorization', helpers.makeAuthHeader(testUser))
+				.expect(200, {
+					authToken: expectedToken,
+				});
 		});
 	});
 });

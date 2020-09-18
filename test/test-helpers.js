@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
  * @returns {knex instance}
  */
 function makeKnexInstance() {
-  return knex({
-    client: 'pg',
-    connection: process.env.TEST_DATABASE_URL,
-  });
+	return knex({
+		client: 'pg',
+		connection: process.env.TEST_DATABASE_URL,
+	});
 }
 
 /**
@@ -18,22 +18,22 @@ function makeKnexInstance() {
  * @returns {array} of user objects
  */
 function makeUsersArray() {
-  return [
-    {
-      id: 1,
-      email: 'test1@email.com',
-      name: 'Test user 1',
-      password: 'Password1!',
-      admin: false,
-    },
-    {
-        id: 2,
-        email: 'test2@email.com',
-        name: 'Test user 2',
-        password: 'Password1!',
-        admin: false,
-    },
-  ];
+	return [
+		{
+			id: 1,
+			email: 'test1@email.com',
+			name: 'Test user 1',
+			password: 'Password1!',
+			admin: false,
+		},
+		{
+			id: 2,
+			email: 'test2@email.com',
+			name: 'Test user 2',
+			password: 'Password1!',
+			admin: false,
+		},
+	];
 }
 
 /** PROBLEM IS HERE!!!!!!!!!
@@ -43,12 +43,12 @@ function makeUsersArray() {
  * @returns {string} - for HTTP authorization header
  */
 function makeAuthHeader(users, secret = process.env.JWT_SECRET) {
-  const token = jwt.sign({ id: users.id }, secret, {
-    subject: users.email,
-    expiresIn: process.env.JWT_EXPIRY,
-    algorithm: 'HS256',
-  })
-  return `Bearer ${token}`;
+	const token = jwt.sign({ id: users.id }, secret, {
+		subject: users.email,
+		expiresIn: process.env.JWT_EXPIRY,
+		algorithm: 'HS256',
+	});
+	return `Bearer ${token}`;
 }
 
 /**
@@ -57,18 +57,19 @@ function makeAuthHeader(users, secret = process.env.JWT_SECRET) {
  * @returns {Promise} - when tables are cleared
  */
 function cleanTables(db) {
-  return db.transaction(trx =>
-    trx.raw(
-      `TRUNCATE
+	return db.transaction((trx) =>
+		trx
+			.raw(
+				`TRUNCATE
         "users"`
-      )
-      .then(() =>
-        Promise.all([
-          trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`SELECT setval('users_id_seq', 0)`),
-        ])
-      )
-  );
+			)
+			.then(() =>
+				Promise.all([
+					trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
+					trx.raw(`SELECT setval('users_id_seq', 0)`),
+				])
+			)
+	);
 }
 
 /**
@@ -78,25 +79,23 @@ function cleanTables(db) {
  * @returns {Promise} - when users table seeded
  */
 function seedUsers(db, users) {
-  const preppedUsers = users.map(user => ({
-    ...user,
-    password: bcrypt.hashSync(user.password, 1)
-  }))
-  return db.transaction(async trx => {
-    await trx.into('users').insert(preppedUsers)
+	const preppedUsers = users.map((user) => ({
+		...user,
+		password: bcrypt.hashSync(user.password, 1),
+	}));
+	return db.transaction(async (trx) => {
+		await trx.into('users').insert(preppedUsers);
 
-    await trx.raw(
-      `SELECT setval('users_id_seq', ?)`,
-      [users[users.length - 1].id],
-    )
-  });
+		await trx.raw(`SELECT setval('users_id_seq', ?)`, [
+			users[users.length - 1].id,
+		]);
+	});
 }
 
-
 module.exports = {
-  makeKnexInstance,
-  makeUsersArray,
-  makeAuthHeader,
-  cleanTables,
-  seedUsers
+	makeKnexInstance,
+	makeUsersArray,
+	makeAuthHeader,
+	cleanTables,
+	seedUsers,
 };
