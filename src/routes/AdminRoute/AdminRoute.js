@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
-//import Admin from '../../components/Admin/Admin';
 import Button from '../../components/Button/Button';
 import UserApiService from '../../services/user-api-service';
 import UserInfo from '../../components/Admin/UserInfo';
-import TokenService from '../../services/token-service';
+import './AdminRoute.css';
 
 class AdminRoute extends Component {
 	static defaultProps = {
@@ -50,11 +48,8 @@ class AdminRoute extends Component {
 		const { error } = this.context;
 		return (
 			<section>
-				<div>
+				<div className="logout-button">
 					<p>Logged in as {this.context.user.name}</p>
-					<Button id="logout" type="onClick" onClick={this.handleLogoutClick}>
-						Log Out
-					</Button>
 				</div>
 				<div>
 					<h2>Admin</h2>
@@ -65,10 +60,7 @@ class AdminRoute extends Component {
 							this.renderUsersList()
 						)}
 					</ul>
-
-					{/* {this.renderLogoutLink()} */}
 				</div>
-				{/* <Admin /> */}
 			</section>
 		);
 	}

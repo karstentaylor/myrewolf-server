@@ -1,21 +1,24 @@
-import React, { Component } from "react";
-import "../../components/App/App.css";
-import Welcome from "../../components/Welcome/Welcome";
-import Header from "../../components/Header/Header";
+import React, { Component } from 'react';
+import '../../components/App/App.css';
+import Welcome from '../../components/Welcome/Welcome';
 
 class WelcomeRoute extends Component {
-  render() {
-    return (
-      <section className="container">
-        <Header />
-        <p className="tagline">
-        Binaural beats use the power of auditory illusion to help you achieve altered states of consciousness
-        </p>
-        <h2>Welcome</h2>
-        <Welcome />
-      </section>
-    );
-  }
+	render() {
+		return (
+			<section className="container">
+				<h2>Welcome</h2>
+				<h3 className="tagline">
+					This app was designed for a creative agency. It allows them to focus
+					their work on their clients' and potential clients' needs. When a free
+					account is created you will have access to a discovery form that will
+					allow you to answer a questionnaire. These questions are designed so
+					Rewolf may assess your needs. You may also leave a review on what your
+					experience has been working with Rewolf so far.
+				</h3>
+				<Welcome />
+			</section>
+		);
+	}
 }
 
 export default WelcomeRoute;

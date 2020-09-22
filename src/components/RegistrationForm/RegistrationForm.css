@@ -1,0 +1,29 @@
+.name {
+	text-align: center;
+	margin: auto;
+}
+.email {
+	text-align: center;
+	margin: auto;
+}
+.RegistrationForm {
+	text-align: center;
+	justify-content: center;
+}
+input {
+	display: inline-block;
+	margin: 20px;
+	position: relative;
+}
+.RegButton {
+	text-align: center;
+	background-color: #ffffff;
+	/* align-items: center;
+	justify-content: center; */
+}
+#RegistrationForm_email,
+#RegistrationForm_password,
+#RegistrationForm_name {
+	width: 70%;
+	margin: auto;
+}

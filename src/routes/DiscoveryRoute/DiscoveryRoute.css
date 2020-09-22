@@ -1,0 +1,18 @@
+.Discovery {
+	background-color: f8a046;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	color: black;
+}
+.Discovery input {
+	width: 90%;
+}
+.DiscoverySubmit {
+	text-align: center;
+	justify-content: center;
+}
+/* #submit-btn{
+    margin-top: 20px;
+    align-content: center;
+} */

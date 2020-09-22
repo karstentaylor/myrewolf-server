@@ -1,48 +1,34 @@
-import React, { Component } from "react";
-import LoginForm from "../../components/LoginForm/LoginForm";
-import UserContext from "../../contexts/UserContext";
-import Header from "../../components/Header/Header";
+import React, { Component } from 'react';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import UserContext from '../../contexts/UserContext';
+import './LoginRoute.css';
 
 class LoginRoute extends Component {
-  static defaultProps = {
-    location: {},
-    history: {
-      push: () => {},
-    },
-  };
+	static defaultProps = {
+		location: {},
+		history: {
+			push: () => {},
+		},
+	};
 
-  static contextType = UserContext;
+	static contextType = UserContext;
 
-  // handleLoginSuccess = () => {
-  //     const { history } = this.props;
-  //     {
-  //       user.admin ? history.push("/admin") : history.push("/learn");
-  //     }
-  //   };
+	handleLoginSuccess = () => {
+		const { location, history } = this.props;
+		const destination = (location.state || {}).from || '/home';
+		history.push(destination);
+	};
 
-  handleAdminLogin = () => {
-    const { history } = this.props;
-    history.push("/admin");
-  };
-  handleUserLogin = () => {
-    const { history } = this.props;
-    history.push("/learn");
-  };
-
-  render() {
-    const { user } = this.context;
-
-    return (
-      <section className="container">
-        <Header />
-        <p className="tagline">
-        Binaural beats use the power of auditory illusion to help you achieve altered states of consciousness
-        </p>
-        <h2>Log In</h2>
-        <LoginForm onLoginSuccess={this.handleLoginSuccess} />
-      </section>
-    );
-  }
+	render() {
+		return (
+			<section className="LoginPage">
+				<div className="LoginHeader">
+					<h2>Log In</h2>
+				</div>
+				<LoginForm onLoginSuccess={this.handleLoginSuccess} />
+			</section>
+		);
+	}
 }
 
 export default LoginRoute;

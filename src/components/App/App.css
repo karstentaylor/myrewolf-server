@@ -1,28 +1,25 @@
-a {
-  text-decoration: none;
-}
-/* .App {
-  padding: 20px;
-  margin: auto;
-  justify-content: center;
-} */
-img {
-  width: 100%;
-  height: auto;
-}
-.item {
-  flex: 1;
-  margin: auto;
-  text-align: center;
-  color: #f2f2f2;
-  line-height: 18px;
-  align-content: space-between;
-  justify-content: center;
-  flex-direction: column;
+body {
+	background-color: white;
+	font-family: 'futura', sans-serif;
+	color: black;
 }
 
-@media only screen and (min-width: 769px) {
-
+.App {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	max-width: 100%;
+	margin: 0 auto;
 }
-@media only screen and (min-width: 1025px) {
+
+.App_header {
+	justify-content: space-evenly;
+	text-align: center;
+}
+
+.App_main {
+	margin-top: 40px;
+}
+
+.Input {
+	width: 50%;
 }

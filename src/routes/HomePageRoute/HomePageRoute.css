@@ -1,0 +1,32 @@
+.Centered {
+	/* background-image: url(../../images/RewolfLogo.jpg); */
+	background-size: 20%;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.Home_page-discovery {
+	text-align: center;
+	height: 50%;
+	background-color: #e0a877;
+	height: 75px;
+	padding: 2%;
+	justify-content: center;
+	opacity: 50%;
+}
+
+.Change {
+	text-align: center;
+	background-color: #e0a877;
+	height: 75px;
+	padding: 2%;
+	opacity: 50%;
+}
+a {
+	font-size: 24px;
+	text-decoration: none;
+	color: white;
+}
+.Space {
+	padding: 15%;
+}

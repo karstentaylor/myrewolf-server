@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Header from '../Header/Header';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute';
 import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute';
 import LoginRoute from '../../routes/LoginRoute/LoginRoute';
-import Admin from '../../components/Admin/Admin';
-import PlayerRoute from '../../routes/PlayerRoute/PlayerRoute';
-import LearnRoute from '../../routes/LearnRoute/LearnRoute';
+//import Admin from '../Admin/Admin';
+import DiscoveryRoute from '../../routes/DiscoveryRoute/DiscoveryRoute';
+import HomePageRoute from '../../routes/HomePageRoute/HomePageRoute';
 import ChangePasswordRoute from '../../routes/ChangePasswordRoute/ChangePasswordRoute';
+// import ReviewRoute from '../../routes/ReviewRoute/ReviewRoute';
 import WelcomeRoute from '../../routes/WelcomeRoute/WelcomeRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AdminRoute from '../../routes/AdminRoute/AdminRoute';
 import TokenService from '../../services/token-service';
 import UserContext from '../../contexts/UserContext';
-import '../../index.css';
+import Header from '../Header/Header.js';
+import './App.css';
+import Footer from '../../components/Footer/Footer';
 
 export default class App extends Component {
 	state = {
@@ -32,35 +34,32 @@ export default class App extends Component {
 		const { hasError } = this.state;
 		return (
 			<div className="App">
-				<div id="stars"></div>
-				<div id="stars2"></div>
-				<div id="stars3"></div>
+				<header className="App_header">
+					<Header />
+				</header>
 				<main>
 					{hasError && <p>There was an error! Oh no!</p>}
 					<Switch>
 						<Route exact path={'/'} component={WelcomeRoute} />
-						<PublicOnlyRoute path={'/register'} component={RegistrationRoute} />
-						<PublicOnlyRoute path={'/login'} component={LoginRoute} />
-						{/* <Route path={'/learn'} component={LearnRoute} /> */}
+						<Route path={'/register'} component={RegistrationRoute} />
+						<Route path={'/login'} component={LoginRoute} />
 						<Route
 							exact
-							path="/learn"
+							path="/home"
 							component={
 								TokenService.hasAuthToken() && this.context.user.admin === true
-									? Admin
-									: LearnRoute
+									? AdminRoute
+									: HomePageRoute
 							}
 						/>
-
 						<Route path={'/admin'} component={AdminRoute} />
-
-						{/* <Route path={"/learn"} component={LearnRoute} /> */}
-
-						<Route path={'/player'} component={PlayerRoute} />
-						{/* <PrivateRoute path={'/change'} component={ChangePasswordRoute} /> */}
+						{/* <Route path={'/reviews'} component={ReviewRoute} /> */}
+						<Route path={'/discovery'} component={DiscoveryRoute} />
+						<Route path={'/change'} component={ChangePasswordRoute} />
 						<Route component={NotFoundRoute} />
 					</Switch>
 				</main>
+				<Footer />
 			</div>
 		);
 	}

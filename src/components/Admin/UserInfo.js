@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import Button from '../Button/Button';
-import '../../../src/index.css';
+import '../../index.css';
 import UserApiService from '../../services/user-api-service';
 
 export default class UserInfo extends Component {

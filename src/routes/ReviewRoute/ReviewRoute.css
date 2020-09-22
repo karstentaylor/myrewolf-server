@@ -1,0 +1,28 @@
+.ReviewForm select,
+.ReviewForm label {
+	font-size: 1.1em;
+}
+
+.ReviewForm label {
+	display: inline-block;
+	margin: 10px 10px 20px;
+	margin-left: 0;
+}
+.ReviewForm {
+	text-align: center;
+}
+.Textarea {
+	width: 97%;
+	justify-content: center;
+}
+
+.select {
+	text-align: center;
+	align-content: center;
+	justify-content: center;
+	color: black;
+}
+
+.Submit-btn {
+	margin-top: 5%;
+}
