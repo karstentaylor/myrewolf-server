@@ -21,7 +21,6 @@ const UserService = {
 
 	//ADDING A NEW USER
 	addUser(db, newUser) {
-		console.log('CHECK OUT');
 		return db
 			.insert(newUser)
 			.into('users')

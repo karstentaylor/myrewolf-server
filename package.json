@@ -1,5 +1,5 @@
 {
-	"name": "binaural-server",
+	"name": "myrewolf-server",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -11,7 +11,7 @@
 		"start": "node src/server.js",
 		"predeploy": "npm audit",
 		"deploy": "git push heroku master",
-		"seed": "psql -d binaural -U dunder_mifflin -f ./seeds/seed.tables.sql",
+		"seed": "psql -U dunder_mifflin -d rewolf -f ./seeds/seed.tables.sql",
 		"postdeploy": "npm run migrate:production"
 	},
 	"keywords": [],

@@ -10,6 +10,8 @@ const error = require('./error');
 
 const authRouter = require('./auth/auth-router');
 const userRouter = require('./user/user-router');
+const reviewsRouter = require('./reviews/reviews-router');
+const discoveryRouter = require('./discovery/discovery-router');
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use(cors());
 //ROUTES CALL
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/reviews', reviewsRouter);
+app.use('/api/discovery', discoveryRouter);
 
 app.use(error);
 
