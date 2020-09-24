@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
-import Button from '../../components/Button/Button';
 import UserApiService from '../../services/user-api-service';
 import UserInfo from '../../components/Admin/UserInfo';
 import './AdminRoute.css';

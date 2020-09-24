@@ -4,11 +4,9 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute';
 import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute';
 import LoginRoute from '../../routes/LoginRoute/LoginRoute';
-//import Admin from '../Admin/Admin';
 import DiscoveryRoute from '../../routes/DiscoveryRoute/DiscoveryRoute';
 import HomePageRoute from '../../routes/HomePageRoute/HomePageRoute';
 import ChangePasswordRoute from '../../routes/ChangePasswordRoute/ChangePasswordRoute';
-// import ReviewRoute from '../../routes/ReviewRoute/ReviewRoute';
 import WelcomeRoute from '../../routes/WelcomeRoute/WelcomeRoute';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AdminRoute from '../../routes/AdminRoute/AdminRoute';
@@ -41,9 +39,9 @@ export default class App extends Component {
 					{hasError && <p>There was an error! Oh no!</p>}
 					<Switch>
 						<Route exact path={'/'} component={WelcomeRoute} />
-						<Route path={'/register'} component={RegistrationRoute} />
-						<Route path={'/login'} component={LoginRoute} />
-						<Route
+						<PublicOnlyRoute path={'/register'} component={RegistrationRoute} />
+						<PublicOnlyRoute path={'/login'} component={LoginRoute} />
+						<PrivateRoute
 							exact
 							path="/home"
 							component={
@@ -52,10 +50,10 @@ export default class App extends Component {
 									: HomePageRoute
 							}
 						/>
-						<Route path={'/admin'} component={AdminRoute} />
-						{/* <Route path={'/reviews'} component={ReviewRoute} /> */}
-						<Route path={'/discovery'} component={DiscoveryRoute} />
-						<Route path={'/change'} component={ChangePasswordRoute} />
+						<PrivateRoute path={'/home'} component={HomePageRoute} />
+						<PrivateRoute path={'/admin'} component={AdminRoute} />
+						<PrivateRoute path={'/discovery'} component={DiscoveryRoute} />
+						<PrivateRoute path={'/change'} component={ChangePasswordRoute} />
 						<Route component={NotFoundRoute} />
 					</Switch>
 				</main>

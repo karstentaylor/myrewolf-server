@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Input, Required, Label } from '../Form/Form';
 import UserApiService from '../../services/user-api-service';
 import TokenService from '../../services/token-service';
@@ -51,9 +50,9 @@ class RegistrationForm extends Component {
 					{error && <p>{error}</p>}
 				</div>
 				<div className="name">
-					<label htmlFor="Registration_name" hidden>
+					<Label htmlFor="Registration_name" hidden>
 						Name <Required />
-					</label>
+					</Label>
 					<Input
 						ref={this.firstInput}
 						name="name"
@@ -64,9 +63,9 @@ class RegistrationForm extends Component {
 					></Input>
 				</div>
 				<div className="email">
-					<label htmlFor="RegistrationForm_email" hidden>
+					<Label htmlFor="RegistrationForm_email" hidden>
 						E-mail <Required />
-					</label>
+					</Label>
 					<Input
 						name="email"
 						type="text"
@@ -76,9 +75,9 @@ class RegistrationForm extends Component {
 					></Input>
 				</div>
 				<div className="password">
-					<label htmlFor="RegistrationForm_password" hidden>
+					<Label htmlFor="RegistrationForm_password" hidden>
 						Password <Required />
-					</label>
+					</Label>
 					<Input
 						name="password"
 						type="password"

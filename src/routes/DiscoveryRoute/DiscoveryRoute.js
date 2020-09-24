@@ -45,7 +45,6 @@ export default class DiscoveryRoute extends Component {
 
 	renderQuestions() {
 		const { questions = [] } = this.context;
-		console.log(questions);
 		return questions.map((question) => (
 			<DiscoveryQuestion key={question.id} question={question} />
 		));

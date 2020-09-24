@@ -12,7 +12,7 @@
 	height: 75px;
 	padding: 2%;
 	justify-content: center;
-	opacity: 50%;
+	/* opacity: 50%; */
 }
 
 .Change {
@@ -20,7 +20,7 @@
 	background-color: #e0a877;
 	height: 75px;
 	padding: 2%;
-	opacity: 50%;
+	/* opacity: 50%; */
 }
 a {
 	font-size: 24px;

@@ -12,8 +12,7 @@ class WelcomeRoute extends Component {
 					their work on their clients' and potential clients' needs. When a free
 					account is created you will have access to a discovery form that will
 					allow you to answer a questionnaire. These questions are designed so
-					Rewolf may assess your needs. You may also leave a review on what your
-					experience has been working with Rewolf so far.
+					Rewolf may assess your needs.
 				</h3>
 				<Welcome />
 			</section>

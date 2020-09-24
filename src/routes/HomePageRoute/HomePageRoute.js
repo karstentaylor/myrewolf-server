@@ -22,9 +22,7 @@ class LearnRoute extends Component {
 						<Link to="/discovery">Help us help you!</Link>
 					</div>
 					<img src="static/img/RewolfLogo.jpg" className="Rewolf" alt="" />
-					{/* <div className="Space"></div>
-					<div className="Centered"></div>
-					<div className="Space"></div> */}
+
 					<div className="Change">
 						<Link to="/change">Change your password</Link>
 					</div>

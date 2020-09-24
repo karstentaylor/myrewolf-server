@@ -4,7 +4,6 @@ import AuthApiService from '../../services/auth-api-service';
 import UserContext from '../../contexts/UserContext';
 import Button from '../Button/Button';
 import '../App/App.css';
-//import '../../routes/LoginRoute/LoginRoute.css';
 
 class LoginForm extends Component {
 	static defaultProps = {
@@ -20,7 +19,6 @@ class LoginForm extends Component {
 	handleSubmit = (ev) => {
 		ev.preventDefault();
 		const { email, password } = ev.target;
-		console.log(email, password);
 
 		this.setState({ error: null });
 

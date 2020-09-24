@@ -54,7 +54,6 @@ const ApiService = {
 		);
 	},
 	postAnswer(answer) {
-		console.log(answer);
 		return fetch(`${config.API_ENDPOINT}/api/discovery`, {
 			method: 'POST',
 			headers: {

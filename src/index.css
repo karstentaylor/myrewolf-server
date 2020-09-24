@@ -67,3 +67,24 @@ button {
 .logout-button {
 	text-align: center;
 }
+
+li {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 80%;
+	min-width: 50%;
+	border-bottom: 1px solid #c7825f;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+ul {
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	margin: auto;
+	align-items: center;
+	flex-wrap: wrap;
+	overflow-x: scroll;
+}
