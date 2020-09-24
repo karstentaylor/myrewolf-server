@@ -98,13 +98,29 @@ userRouter
 userRouter
 	.route('/:id')
 	.all(requireAuth)
+	.get((req, res, next) => {
+		const { id } = req.params;
+		UserService.getUserById(req.app.get('db'), id)
+			.then((user) => {
+				if (!user) {
+					return res
+						.status(400)
+						.json({ error: { message: 'User not found/does not exist' } });
+				}
+
+				console.log(user);
+
+				return res.status(200).json(serializeUser(user));
+			})
+			.catch(next);
+	})
 	.delete(bodyParser, (req, res, next) => {
 		const id = req.params.id;
 		UserService.deleteUser(req.app.get('db'), id)
 			.then((user) => {
 				if (!user) {
 					return res
-						.status(404)
+						.status(400)
 						.json({ error: { message: 'User not found/does not exist' } });
 				}
 				res.status(204).end();
@@ -112,42 +128,62 @@ userRouter
 			.catch(next);
 	})
 	.patch(bodyParser, (req, res, next) => {
-		const trimUpdateUser = {
-			id: req.params.id,
-			password: req.body.password,
-		};
+		const { password, user_prefs } = req.body;
 
-		//VALIDATION PASSWORD REQUIRED
-		for (const field of ['password'])
-			if (!trimUpdateUser[field]) {
-				logs.error(`The ${field} is required.`);
-				return res.status(400).json({ error: `The ${field} is required.` });
+		//If updating user preferences
+		if (user_prefs) {
+			UserService.updateUser(req.app.get('db'), req.params.id, { user_prefs })
+				.then(() => {
+					logs.info(`User ${req.params.id}: User prefs updated successfully.`);
+					res.status(204).end();
+				})
+				.catch((err) => {
+					res.status(409).json({ error: err });
+				});
+
+			//If updating password
+		} else {
+			const trimUpdateUser = {
+				id: req.params.id,
+				password: req.body.password,
+			};
+
+			//VALIDATION PASSWORD REQUIRED
+			for (const field of ['password'])
+				if (!trimUpdateUser[field]) {
+					logs.error(`The ${field} is required.`);
+					return res.status(400).json({ error: `The ${field} is required.` });
+				}
+
+			//CONST CALLING PASSWORD VALIDATION - User-service.js
+			const passError = UserService.passValidation(trimUpdateUser.password);
+			if (passError) {
+				logs.error(passError);
+				return res.status(400).json({ error: passError });
 			}
 
-		//CONST CALLING PASSWORD VALIDATION - User-service.js
-		const passError = UserService.passValidation(trimUpdateUser.password);
-		if (passError) {
-			logs.error(passError);
-			return res.status(400).json({ error: passError });
-		}
-
-		//UPDATE USER VALIDATION - User-service.js
-		UserService.updateUser(
-			req.app.get('db'),
-			trimUpdateUser.id,
-			trimUpdateUser.password
-		)
-			.then(() => {
-				if (trimUpdateUser.password) {
-					logs.info(
-						`User ${trimUpdateUser.id}: password was updated successfully.`
-					);
-					res.status(204).end();
-				}
-			})
-			.catch((err) => {
-				res.status(409).json({ error: err });
+			//UPDATE USER VALIDATION - User-service.js
+			UserService.passHash(trimUpdateUser.password).then((hashedPass) => {
+				trimUpdateUser.password = hashedPass;
+				UserService.updateUser(
+					req.app.get('db'),
+					trimUpdateUser.id,
+					trimUpdateUser
+				)
+					.then(() => {
+						if (trimUpdateUser.password) {
+							logs.info(
+								`User ${trimUpdateUser.id}: password was updated successfully.`
+							);
+							res.status(204).end();
+						}
+					})
+					.catch((err) => {
+						res.status(409).json({ error: err });
+					});
 			});
+		}
+		next;
 	});
 
 module.exports = userRouter;

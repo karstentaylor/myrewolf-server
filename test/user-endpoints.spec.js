@@ -23,7 +23,7 @@ describe('User Endpoints', function () {
 	/**
 	 * @description Register a user and populate their fields
 	 **/
-	describe('POST /api/user', () => {
+	describe('{POST} /api/user', () => {
 		beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
 
 		const requiredFields = ['name', 'password', 'email'];
@@ -41,9 +41,7 @@ describe('User Endpoints', function () {
 				return supertest(app)
 					.post('/api/user')
 					.send(registerAttemptBody)
-					.expect(400, {
-						error: `The ${field} field is required.`,
-					});
+					.expect(400, { error: `The ${field} field is required.` });
 			});
 		});
 
@@ -53,6 +51,7 @@ describe('User Endpoints', function () {
 				password: '1234',
 				name: 'test name',
 			};
+
 			return supertest(app)
 				.post('/api/user')
 				.send(userShortPassword)
@@ -67,6 +66,7 @@ describe('User Endpoints', function () {
 				password: '*'.repeat(45),
 				name: 'test name',
 			};
+
 			return supertest(app)
 				.post('/api/user')
 				.send(userLongPassword)
@@ -81,6 +81,7 @@ describe('User Endpoints', function () {
 				password: ' 1Aa!2Bb@',
 				name: 'test name',
 			};
+
 			return supertest(app)
 				.post('/api/user')
 				.send(userPasswordStartsSpaces)
@@ -126,7 +127,7 @@ describe('User Endpoints', function () {
 				.expect(400, { error: 'Email already exists. Try again.' });
 		});
 
-		describe('Given a valid user registration', () => {
+		describe('Given a valid user registration /api/user', () => {
 			it('responds 201, serialized user with no password', () => {
 				const newUser = {
 					email: 'email@email.com',
@@ -146,11 +147,9 @@ describe('User Endpoints', function () {
 					});
 			});
 
-			//NEEDS REVIEW==============>
-
 			it('stores the new user in db with bcrypt password', () => {
 				const newUser = {
-					email: 'test email',
+					email: 'email@email.com',
 					password: '11AAaa!!',
 					name: 'test name',
 				};
@@ -176,11 +175,10 @@ describe('User Endpoints', function () {
 			});
 		});
 	});
-	describe(`PATCH token`, () => {
+
+	describe('{PATCH} token', () => {
 		beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
-		console.log('testUsers', testUsers);
-		//PROBLEM
-		it(`responds 200 and JWT auth token using secret`, () => {
+		it('responds 200 and JWT auth token using secret', () => {
 			const expectedToken = jwt.sign(
 				{ id: testUser.id, name: testUser.name },
 				process.env.JWT_SECRET,

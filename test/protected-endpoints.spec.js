@@ -20,22 +20,22 @@ describe('Protected Endpoints', function () {
 
 	const protectedEndpoints = [
 		{
-			name: 'PUT /token',
+			name: '{PUT} /token',
 			path: '/api/auth/token',
 			method: supertest(app).put,
 		},
 		{
-			name: 'GET /api/user',
+			name: '{GET} /api/user',
 			path: '/api/user',
 			method: supertest(app).get,
 		},
 		{
-			name: 'PATCH /api/user/:id',
+			name: '{PATCH} /api/user/:id',
 			path: '/api/user/1',
 			method: supertest(app).patch,
 		},
 		{
-			name: 'DELETE /api/user/:id',
+			name: '{DELETE} /api/user/:id',
 			path: '/api/user/1',
 			method: supertest(app).delete,
 		},
@@ -62,7 +62,11 @@ describe('Protected Endpoints', function () {
 			});
 
 			it("responds 401 'Unauthorized request' when invalid sub in payload", () => {
-				const invalidUser = { email: 'user-not-existy', id: 1 };
+				const invalidUser = {
+					email: 'user-not-exist',
+					id: 1,
+				};
+
 				return endpoint
 					.method(endpoint.path)
 					.set('Authorization', helpers.makeAuthHeader(invalidUser))

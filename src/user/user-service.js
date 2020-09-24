@@ -10,17 +10,22 @@ const UserService = {
 		return db.select('*').from('users');
 	},
 
+	getUserById(db, id) {
+		return db.select('*').from('users').where({ id }).first();
+	},
+
 	deleteUser(db, id) {
 		return db('users').where({ id }).delete();
 	},
 
 	//UPDATE USER PASSWORD
-	updateUser(db, id, password) {
-		return db('users').where({ id }).update({ password: password });
+	updateUser(db, id, updatedFields) {
+		return db('users').where({ id }).update(updatedFields);
 	},
 
 	//ADDING A NEW USER
 	addUser(db, newUser) {
+		console.log('CHECK OUT');
 		return db
 			.insert(newUser)
 			.into('users')
@@ -58,6 +63,7 @@ const UserService = {
 			name: xss(user.name),
 			password: xss(user.password),
 			admin: user.admin,
+			user_prefs: xss(user.user_prefs),
 		};
 	},
 
