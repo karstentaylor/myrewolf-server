@@ -50,7 +50,7 @@ class RegistrationForm extends Component {
 					{error && <p>{error}</p>}
 				</div>
 				<div className="name">
-					<Label htmlFor="Registration_name" hidden>
+					<Label htmlFor="Registration_name" value="Enter your name" hidden>
 						Name <Required />
 					</Label>
 					<Input

@@ -24,6 +24,9 @@ class LoginRoute extends Component {
 			<section className="LoginPage">
 				<div className="LoginHeader">
 					<h2>Log In</h2>
+					<p>You may login using the demo credentials of...</p>
+					<p>E-mail: test@test.com Password: Testuser1! </p>
+					<p>For admin access: admin@admin.com Password: Adminpass1!</p>
 				</div>
 				<LoginForm onLoginSuccess={this.handleLoginSuccess} />
 			</section>
