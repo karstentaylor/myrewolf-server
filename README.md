@@ -222,3 +222,26 @@ Logs in to an existing account
 ## Technology
 
 Made with the Express framework, React, Node.JS, and PostgreSQL. Uses postgrator to perform table migrations to SQL database and knex library to write make changes to the tables.
+
+## App Screenshots
+
+-Welcome Screen
+(./public/static/img/WelcomeRoute.png)
+
+-Registration
+(./public/static/img/RegistrationRoute.png)
+
+-Login
+(./public/static/img/LoginRoute.png)
+
+-Admin
+(./public/static/img/AdminRoute.png)
+
+-Home
+(./public/static/img/HomePageRoute.png)
+
+-Discovery
+(./public/static/img/DiscoveryRoute.png)
+
+-Change Password
+(./public/static/img/ChangePasswordRoute.png)
