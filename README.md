@@ -226,22 +226,22 @@ Made with the Express framework, React, Node.JS, and PostgreSQL. Uses postgrator
 ## App Screenshots
 
 -Welcome Screen
-(./public/static/img/WelcomeRoute.png)
+![WelcomeRoute](./public/static/img/WelcomeRoute.png)
 
 -Registration
-(./public/static/img/RegistrationRoute.png)
+![Registration](./public/static/img/RegistrationRoute.png)
 
 -Login
-(./public/static/img/LoginRoute.png)
+![Login](./public/static/img/LoginRoute.png)
 
 -Admin
-(./public/static/img/AdminRoute.png)
+![Admin](./public/static/img/AdminRoute.png)
 
 -Home
-(./public/static/img/HomePageRoute.png)
+![Home](./public/static/img/HomePageRoute.png)
 
 -Discovery
-(./public/static/img/DiscoveryRoute.png)
+![Discovery](./public/static/img/DiscoveryRoute.png)
 
 -Change Password
-(./public/static/img/ChangePasswordRoute.png)
+![ChangePasswordRoute](./public/static/img/ChangePasswordRoute.png)
