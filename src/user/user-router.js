@@ -75,7 +75,6 @@ userRouter
 
 					return UserService.addUser(req.app.get('db'), trimUser).then(
 						(user) => {
-							console.log('HERE');
 							logs.info(
 								`User created successfully. The user id is: ${user.id}.`
 							);
@@ -107,8 +106,6 @@ userRouter
 						.status(400)
 						.json({ error: { message: 'User not found/does not exist' } });
 				}
-
-				console.log(user);
 
 				return res.status(200).json(serializeUser(user));
 			})
